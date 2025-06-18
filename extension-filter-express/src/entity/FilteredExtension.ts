@@ -6,10 +6,13 @@ export default class FilteredExtension {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({unique: true})
     name: string;
 
     @CreateDateColumn()
     createdAt: Timestamp;
 
+    constructor(name: string) {
+        this.name = name;
+    }
 }
