@@ -1,0 +1,31 @@
+version: '3'
+services:
+  extension-filter-postgres:
+    build: ./extension-filter-postgres
+    image: extension-filter-postgres:1.0.0-compose
+    volumes:
+      - extension-filter-volume:/var/lib/postgresql/data
+    restart: always
+
+  extension-filter-express:
+    build: ./extension-filter-express
+    image: extension-filter-express:1.0.0-compose
+    environment:
+      - DB_URL=extension-filter-postgres
+    depends_on:
+      - extension-filter-postgres
+    restart: on-failure
+
+  extension-filter-front:
+    build: ./extension-filter-nextjs
+    image: extension-filter-nextjs:1.0.0-compose
+    environment:
+      - BACKEND_HOST=extension-filter-express
+    ports:
+      - 80:3000
+    depends_on:
+      - extension-filter-express
+    restart: on-failure
+
+volumes:
+  extension-filter-volume:
