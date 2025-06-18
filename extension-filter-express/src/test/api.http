@@ -1,0 +1,6 @@
+POST localhost:3000/api/filtered-extensions
+Content-Type: application/json
+
+{
+ "name": "test3"
+}
