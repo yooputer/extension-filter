@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import {createConnection} from "typeorm";
 import * as express from "express";
+const cors = require('cors');
 import * as bodyParser from "body-parser";
 import {AppRoutes} from "./routes";
 
@@ -10,6 +11,7 @@ createConnection().then(async connection => {
 
     const app = express();
     app.use(bodyParser.json());
+    app.use(cors()); // TODO: cors 설정
 
     AppRoutes.forEach(route => {
         app[route.method](route.path, (request: Request, response: Response, next: Function) => {
