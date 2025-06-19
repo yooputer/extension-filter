@@ -23,24 +23,24 @@ export const getAllFilteredExtension = async (): Promise<FilteredExtension[]> =>
 }
 
 export const addFilteredExtension = async ({ name }: {name: string}) => {
-    try {
-        const response = await fetch(`/api/filtered-extensions`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name }),
-        });
+    const response = await fetch(`/api/filtered-extensions`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name }),
+    });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+    if (!response.ok) {
+        if (response.status === 400) {
+            return '이미 차단된 확장자입니다. ';
         }
 
-        return "success";
-    } catch (error) {
-        // TODO 중복확장자 예외처리
-        return "이미 차단된 확장자입니다. "
+        alert('서버에서 오류가 발생하였습니다.');
+        return '';
     }
+
+    return 'success';
 }
 
 export const deleteFilteredExtension = async ({ name }: {name: string}) => {
