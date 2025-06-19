@@ -13,7 +13,7 @@ export default function CustomExtensionsFieldset({
   const [newExtension, setNewExtension] = useState('');
 
   const handleAddCustomExtension = async () => {
-    let name = newExtension.trim();
+    const name = newExtension.trim();
     // TODO: 확장자명 유효성 체크
     // TODO: 커스터 확장자 200개 제한 처리
 

@@ -21,8 +21,8 @@ export default function Page() {
       const filteredExtensions = await getAllFilteredExtension();
 
       // state 세팅
-      let fixedExtensionNames: string[] = [];
-      let customExtensionNames: string[] = [];
+      const fixedExtensionNames: string[] = [];
+      const customExtensionNames: string[] = [];
 
       filteredExtensions.forEach(({ name }) => {
         if (FIXED_EXTENSIONS.includes(name)) {
