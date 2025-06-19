@@ -13,8 +13,10 @@ RUN npm install
 # 앱 소스 전체를 복사
 COPY . .
 
+RUN npm run build
+
 # 애플리케이션이 사용할 포트
 EXPOSE 80
 
 # 서버 시작 명령어
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]
