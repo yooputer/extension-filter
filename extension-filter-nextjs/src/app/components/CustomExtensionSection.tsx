@@ -12,16 +12,22 @@ export default function CustomExtensionSection({
 }: CustomExtensionsSectionProps) {
   const MAX_CUSTOM_EXTENSION_CNT = 200;
   const [newExtension, setNewExtension] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleAddCustomExtension = async () => {
     const name = newExtension.trim();
     // TODO: 확장자명 유효성 체크
     // TODO: 커스터 확장자 200개 제한 처리
 
-    await addFilteredExtension({name});
+    const resultMsg = await addFilteredExtension({name});
 
-    fetchExtensions();
-    setNewExtension('');
+    if (resultMsg === 'success') {
+      fetchExtensions();
+      setNewExtension('');
+      setErrorMsg('');
+    }else {
+      setErrorMsg(resultMsg);
+    }
   };
 
   const handleDeleteCustomExtension = async (name: string) => {
@@ -45,7 +51,7 @@ export default function CustomExtensionSection({
 
 
       {/* 입력 영역 */}
-      <div className="flex gap-2 mb-4">
+      <div className="flex gap-2">
         <input
             type="text"
             value={newExtension}
@@ -63,8 +69,12 @@ export default function CustomExtensionSection({
         </button>
       </div>
 
+      <div className="m-2">
+        <p className="mr-2 text-sm text-red-600"> { errorMsg } </p>
+      </div>
+
       {/* 커스텀 확장자 목록 */}
-      <div className="space-y-2">
+      <div className="space-y-2 mt-4">
         {customExtensions.length === 0 ? (
           <div className="flex justify-center p-5">
             <p className="text-gray-500 text-sm">추가된 커스텀 확장자가 없습니다.</p>

@@ -35,9 +35,11 @@ export const addFilteredExtension = async ({ name }: {name: string}) => {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
+
+        return "success";
     } catch (error) {
         // TODO 중복확장자 예외처리
-        console.error('확장자 추가에 실패했습니다:', error);
+        return "이미 차단된 확장자입니다. "
     }
 }
 
