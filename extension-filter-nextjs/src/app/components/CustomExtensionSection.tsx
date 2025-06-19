@@ -51,9 +51,15 @@ export default function CustomExtensionSection({
     // 소문자로 치환
     value = value.toLowerCase();
 
+    // 점으로 시작하는지 체크
+    if (value.startsWith('.')){
+      errorMsg = '점(.)을 제외한 확장자를 입력해주세요.';
+      value = value.slice(1);
+    }
+
     // 입력 문자 제한
     const validCharsRegex = /^[a-z0-9.]+$/;
-    if (!validCharsRegex.test(value)){
+    if (value && !validCharsRegex.test(value)){
       errorMsg = '알파벳(a-z), 숫자, 점(.)만 입력 가능합니다.';
       value = value.replace(/[^a-z0-9.]/g, "");
     }
