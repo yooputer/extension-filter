@@ -2,11 +2,13 @@ import { KeyboardEvent, useState } from 'react';
 import { addFilteredExtension, deleteFilteredExtension } from "@/api/filtered-extension";
 
 interface CustomExtensionsSectionProps {
+  FIXED_EXTENSIONS: string[];
   customExtensions: string[];
   fetchExtensions: () => void;
 }
 
 export default function CustomExtensionSection({
+  FIXED_EXTENSIONS,
   customExtensions,
   fetchExtensions
 }: CustomExtensionsSectionProps) {
@@ -16,6 +18,12 @@ export default function CustomExtensionSection({
   const [errorMsg, setErrorMsg] = useState('');
 
   const handleAddCustomExtension = async () => {
+    // 고정확장자 여부 체크
+    if (FIXED_EXTENSIONS.includes(newExtension)) {
+      setErrorMsg(`고정 확장자로 등록된 확장자입니다. 상단에서 차단 여부를 체크해주세요. `);
+      return;
+    }
+
     // 커스텀 확장자 최대 개수 제한
     if (customExtensions.length >= MAX_CUSTOM_EXTENSION_CNT) {
       setErrorMsg(`커스텀 확장자는 최대 ${MAX_CUSTOM_EXTENSION_CNT}개까지 가능합니다.`);

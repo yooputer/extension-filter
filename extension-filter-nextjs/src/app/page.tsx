@@ -49,8 +49,9 @@ export default function Page() {
         />
 
         <CustomExtensionSection
-          customExtensions={customExtensions}
-          fetchExtensions={fetchExtensions}
+            FIXED_EXTENSIONS={FIXED_EXTENSIONS}
+            customExtensions={customExtensions}
+            fetchExtensions={fetchExtensions}
         />
       </div>
   );
