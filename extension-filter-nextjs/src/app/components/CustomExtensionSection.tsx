@@ -11,6 +11,7 @@ export default function CustomExtensionSection({
   fetchExtensions
 }: CustomExtensionsSectionProps) {
   const MAX_CUSTOM_EXTENSION_CNT = 200;
+  const MAX_CUSTOM_EXTENSION_LENGTH = 20;
   const [newExtension, setNewExtension] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -42,6 +43,29 @@ export default function CustomExtensionSection({
     }
   };
 
+  const handleInputChange = (value:string) => {
+    let errorMsg = '';
+
+    // 소문자로 치환
+    value = value.toLowerCase();
+
+    // 입력 문자 제한
+    const validCharsRegex = /^[a-z0-9.]+$/;
+    if (!validCharsRegex.test(value)){
+      errorMsg = '알파벳(a-z), 숫자, 점(.)만 입력 가능합니다.';
+      value = value.replace(/[^a-z0-9.]/g, "");
+    }
+
+    // 최대 길이 제한
+    if (value.length > MAX_CUSTOM_EXTENSION_LENGTH) {
+      errorMsg = `최대 ${MAX_CUSTOM_EXTENSION_LENGTH}자까지 입력 가능합니다.`;
+      value = value.slice(0, MAX_CUSTOM_EXTENSION_LENGTH);
+    }
+
+    setErrorMsg(errorMsg)
+    setNewExtension(value);
+  }
+
   return (
     <section>
       <h3 className="text-lg font-semibold text-gray-700 mb-4">
@@ -55,7 +79,7 @@ export default function CustomExtensionSection({
         <input
             type="text"
             value={newExtension}
-            onChange={(e) => setNewExtension(e.target.value)}
+            onChange={(e) => handleInputChange(e.target.value)}
           onKeyDown={handleKeyPress}
           placeholder="차단할 확장자를 입력하세요"
           className="flex-1 px-3 py-2 text-black border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
