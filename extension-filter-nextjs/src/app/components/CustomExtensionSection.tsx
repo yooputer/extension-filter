@@ -16,11 +16,13 @@ export default function CustomExtensionSection({
   const [errorMsg, setErrorMsg] = useState('');
 
   const handleAddCustomExtension = async () => {
-    const name = newExtension.trim();
-    // TODO: 확장자명 유효성 체크
-    // TODO: 커스터 확장자 200개 제한 처리
+    // 커스텀 확장자 최대 개수 제한
+    if (customExtensions.length >= MAX_CUSTOM_EXTENSION_CNT) {
+      setErrorMsg(`커스텀 확장자는 최대 ${MAX_CUSTOM_EXTENSION_CNT}개까지 가능합니다.`);
+      return;
+    }
 
-    const resultMsg = await addFilteredExtension({name});
+    const resultMsg = await addFilteredExtension({name: newExtension});
 
     if (resultMsg === 'success') {
       fetchExtensions();
