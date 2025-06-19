@@ -30,6 +30,12 @@ export default function CustomExtensionSection({
       return;
     }
 
+    // '.'으로 끝나는지 체크
+    if (newExtension.endsWith('.')) {
+      setErrorMsg(`확장자명은 알파벳(a-z) 혹은 숫자로 끝나야 합니다. `);
+      return;
+    }
+
     const resultMsg = await addFilteredExtension({name: newExtension});
 
     if (resultMsg === 'success') {
@@ -61,7 +67,7 @@ export default function CustomExtensionSection({
 
     // 점으로 시작하는지 체크
     if (value.startsWith('.')){
-      errorMsg = '점(.)을 제외한 확장자를 입력해주세요.';
+      errorMsg = '확장자명은 알파벳(a-z) 혹은 숫자로 시작하여야 합니다.';
       value = value.slice(1);
     }
 
@@ -70,6 +76,12 @@ export default function CustomExtensionSection({
     if (value && !validCharsRegex.test(value)){
       errorMsg = '알파벳(a-z), 숫자, 점(.)만 입력 가능합니다.';
       value = value.replace(/[^a-z0-9.]/g, "");
+    }
+
+    // 연속된 점이 존재하는지 체크
+    if (value && /\.{2,}/g.test(value)){
+      errorMsg = '점(.)은 연속으로 입력할 수 없습니다. ';
+      value = value.replace(/\.{2,}/g, '.');
     }
 
     // 최대 길이 제한
