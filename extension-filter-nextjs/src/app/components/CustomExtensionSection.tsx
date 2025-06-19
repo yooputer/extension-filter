@@ -31,7 +31,7 @@ export default function CustomExtensionSection({
   };
 
   const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && newExtension) {
       handleAddCustomExtension();
     }
   };
