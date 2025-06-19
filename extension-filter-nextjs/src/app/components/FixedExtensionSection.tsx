@@ -1,13 +1,13 @@
 import { ChangeEvent } from 'react';
 import { addFilteredExtension, deleteFilteredExtension } from "@/api/filtered-extension";
 
-interface FixedExtensionsFieldsetProps {
+interface FixedExtensionsSectionProps {
     FIXED_EXTENSIONS: string[];
     checkedFixedExtensions: string[];
     fetchExtensions: () => void;
 }
 
-export default function FixedExtensionSection({FIXED_EXTENSIONS, checkedFixedExtensions, fetchExtensions}: FixedExtensionsFieldsetProps) {
+export default function FixedExtensionSection({FIXED_EXTENSIONS, checkedFixedExtensions, fetchExtensions}: FixedExtensionsSectionProps) {
   const handleFixedExtensionChange = async (e: ChangeEvent<HTMLInputElement>, extension: string) => {
     if (e.target.checked) {
       await addFilteredExtension({name: extension})
@@ -19,10 +19,10 @@ export default function FixedExtensionSection({FIXED_EXTENSIONS, checkedFixedExt
   };
 
   return (
-    <fieldset className="mb-8">
-      <legend className="text-lg font-semibold text-gray-700 mb-4">
+    <section className="mb-8">
+      <h3 className="text-lg font-semibold text-gray-700 mb-4">
         고정 확장자
-      </legend>
+      </h3>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
         {FIXED_EXTENSIONS.map((extension) => (
           <label key={extension} className="flex items-center space-x-2 cursor-pointer">
@@ -37,6 +37,6 @@ export default function FixedExtensionSection({FIXED_EXTENSIONS, checkedFixedExt
           </label>
         ))}
       </div>
-    </fieldset>
+    </section>
   );
 } 

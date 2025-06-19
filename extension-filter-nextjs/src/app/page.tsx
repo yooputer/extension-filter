@@ -3,7 +3,7 @@
 import {useState, useEffect} from 'react';
 import {getAllFilteredExtension} from "@/api/filtered-extension";
 import FixedExtensionSection from './components/FixedExtensionSection';
-import CustomExtensionSection from './components/CustomExtensionsFieldset';
+import CustomExtensionSection from './components/CustomExtensionSection';
 
 const FIXED_EXTENSIONS = ['bat', 'cmd', 'com', 'cpl', 'exe', 'src', 'js'];
 

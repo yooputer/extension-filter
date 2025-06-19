@@ -1,15 +1,15 @@
 import { KeyboardEvent, useState } from 'react';
 import { addFilteredExtension, deleteFilteredExtension } from "@/api/filtered-extension";
 
-interface CustomExtensionsFieldsetProps {
+interface CustomExtensionsSectionProps {
   customExtensions: string[];
   fetchExtensions: () => void;
 }
 
-export default function CustomExtensionsFieldset({
+export default function CustomExtensionSection({
   customExtensions,
   fetchExtensions
-}: CustomExtensionsFieldsetProps) {
+}: CustomExtensionsSectionProps) {
   const [newExtension, setNewExtension] = useState('');
 
   const handleAddCustomExtension = async () => {
@@ -36,18 +36,19 @@ export default function CustomExtensionsFieldset({
   };
 
   return (
-    <fieldset>
-      <legend className="text-lg font-semibold text-gray-700 mb-4">
+    <section>
+      <h3 className="text-lg font-semibold text-gray-700 mb-4">
         커스텀 확장자
-      </legend>
+      </h3>
+
 
       {/* 입력 영역 */}
       <div className="flex gap-2 mb-4">
         <input
-          type="text"
-          value={newExtension}
-          onChange={(e) => setNewExtension(e.target.value)}
-          onKeyPress={handleKeyPress}
+            type="text"
+            value={newExtension}
+            onChange={(e) => setNewExtension(e.target.value)}
+          onKeyDown={handleKeyPress}
           placeholder="차단할 확장자를 입력하세요"
           className="flex-1 px-3 py-2 text-black border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
@@ -71,7 +72,7 @@ export default function CustomExtensionsFieldset({
             {customExtensions.map((extension) => (
               <div
                 key={extension}
-                className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 text-gray-800 rounded-full text-sm font-medium hover:bg-red-200 transition-colors duration-200"
+                className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 text-gray-800 rounded-full text-sm font-medium hover:bg-blue-200 transition-colors duration-200"
               >
                 <span className="text-black">.{extension}</span>
                 <button
@@ -88,6 +89,6 @@ export default function CustomExtensionsFieldset({
           </div>
         )}
       </div>
-    </fieldset>
+    </section>
   );
 } 
