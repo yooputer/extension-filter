@@ -1,6 +1,8 @@
-import GetFilteredExtensionsAction from "./controller/GetFilteredExtensionsAction";
-import PostFilteredExtensionsAction from "./controller/PostFilteredExtensionsAction";
-import DeleteFilteredExtensionsAction from "./controller/DeleteFilteredExtensionsAction";
+import {
+    GetFilteredExtensionsAction,
+    PostFilteredExtensionsAction,
+    DeleteFilteredExtensionsAction
+} from "./controller/extension-filter"
 
 export const AppRoutes = [
     {
