@@ -4,6 +4,7 @@ FROM postgres:13
 ENV POSTGRES_USER=yoojin
 ENV POSTGRES_PASSWORD=password
 ENV POSTGRES_DB=extension-filter
+ENV TZ=Asia/Seoul
 
 EXPOSE 5432
 
