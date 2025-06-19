@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3000
 
 # 서버 시작 명령어
-CMD ["node", "app.js"]
+CMD ["npm", "run", "start"]
