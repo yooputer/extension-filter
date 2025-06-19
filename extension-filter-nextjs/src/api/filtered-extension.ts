@@ -1,10 +1,8 @@
 import {FilteredExtension} from "../../types/filtered-extension";
 
-const baseURL = 'http://localhost:3000';
-
 export const getAllFilteredExtension = async (): Promise<FilteredExtension[]> => {
     try{
-        const response = await fetch(`${baseURL}/api/filtered-extensions`, {
+        const response = await fetch(`/api/filtered-extensions`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -26,7 +24,7 @@ export const getAllFilteredExtension = async (): Promise<FilteredExtension[]> =>
 
 export const addFilteredExtension = async ({ name }: {name: string}) => {
     try {
-        const response = await fetch(`${baseURL}/api/filtered-extensions`, {
+        const response = await fetch(`/api/filtered-extensions`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -45,7 +43,7 @@ export const addFilteredExtension = async ({ name }: {name: string}) => {
 
 export const deleteFilteredExtension = async ({ name }: {name: string}) => {
     try {
-        const response = await fetch(`${baseURL}/api/filtered-extensions`, {
+        const response = await fetch(`/api/filtered-extensions`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
