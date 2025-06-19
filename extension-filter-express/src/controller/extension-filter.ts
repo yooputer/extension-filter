@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {PostFilteredExtensionsRequestBody} from "../types/request/filtered-extensions";
-import {getManager} from "typeorm";
+import {getManager, QueryFailedError} from "typeorm";
 import FilteredExtension from "../entity/FilteredExtension";
 import {validateExtensionName} from "../lib/extension";
 
@@ -25,9 +25,17 @@ export async function PostFilteredExtensionsAction(request: Request, response: R
         await filteredExtensionRepository.save(newEntity);
         response.send(newEntity);
     } catch (error) {
-        // TODO: 중복 확장자에 대한 예외처리
-        console.log(error)
-        response.status(500).json({ message: '서버에서 오류가 발생하였습니다. '});
+        let status = 500;
+
+        if (error instanceof QueryFailedError) {
+            const driverErrorMsg: string = error.driverError.message;
+            if (driverErrorMsg && driverErrorMsg.startsWith('duplicate key')) {
+                status = 400;
+            }
+        }
+
+        console.log(error);
+        response.status(status).json();
     }
 }
 
