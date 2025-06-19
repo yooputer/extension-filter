@@ -5,7 +5,7 @@ const cors = require('cors');
 import * as bodyParser from "body-parser";
 import {AppRoutes} from "./routes";
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 createConnection().then(async connection => {
 
