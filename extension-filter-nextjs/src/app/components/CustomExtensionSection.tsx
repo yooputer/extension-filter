@@ -10,6 +10,7 @@ export default function CustomExtensionSection({
   customExtensions,
   fetchExtensions
 }: CustomExtensionsSectionProps) {
+  const MAX_CUSTOM_EXTENSION_CNT = 200;
   const [newExtension, setNewExtension] = useState('');
 
   const handleAddCustomExtension = async () => {
@@ -39,6 +40,7 @@ export default function CustomExtensionSection({
     <section>
       <h3 className="text-lg font-semibold text-gray-700 mb-4">
         커스텀 확장자
+        <span className="text-sm text-gray-400 ml-1">({customExtensions.length} / {MAX_CUSTOM_EXTENSION_CNT})</span>
       </h3>
 
 
