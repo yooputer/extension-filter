@@ -9,7 +9,7 @@ export async function GetFilteredExtensionsAction(request: Request, response: Re
 
     const filteredExtensions = await filteredExtensionRepository.find();
 
-    response.send(filteredExtensions);
+    response.status(200).send(filteredExtensions);
 }
 
 export async function PostFilteredExtensionsAction(request: Request, response: Response) {
@@ -47,7 +47,7 @@ export async function DeleteFilteredExtensionsAction(request: Request, response:
 
     await filteredExtensionRepository.delete({name: extensionName});
 
-    response.send();
+    response.status(200).send();
 }
 
 export async function ResetFilteredExtensionsAction(response: Response) {
@@ -55,5 +55,5 @@ export async function ResetFilteredExtensionsAction(response: Response) {
 
     await filteredExtensionRepository.deleteAll();
 
-    response.send();
+    response.status(200).send();
 }
