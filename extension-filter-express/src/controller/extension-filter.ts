@@ -49,3 +49,11 @@ export async function DeleteFilteredExtensionsAction(request: Request, response:
 
     response.send();
 }
+
+export async function ResetFilteredExtensionsAction(response: Response) {
+    const filteredExtensionRepository = getManager().getRepository(FilteredExtension);
+
+    await filteredExtensionRepository.deleteAll();
+
+    response.send();
+}
