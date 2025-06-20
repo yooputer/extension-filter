@@ -132,7 +132,7 @@ export default function CustomExtensionSection({
             <p className="text-gray-500 text-sm">추가된 커스텀 확장자가 없습니다.</p>
           </div>
         ) : (
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mb-4">
             {customExtensions.map((extension) => (
               <div
                 key={extension}

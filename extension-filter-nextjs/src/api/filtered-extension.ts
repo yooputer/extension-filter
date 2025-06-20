@@ -61,3 +61,21 @@ export const deleteFilteredExtension = async ({ name }: {name: string}) => {
         console.error('확장자 삭제에 실패했습니다:', error);
     }
 }
+
+export const resetFilteredExtensions = async () => {
+    try {
+        const response = await fetch(`/api/filtered-extensions/all`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+    } catch (error) {
+        console.error('확장자 초기화에 실패했습니다:', error);
+    }
+}
