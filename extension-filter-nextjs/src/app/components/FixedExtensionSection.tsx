@@ -1,13 +1,14 @@
 import { ChangeEvent } from 'react';
 import { addFilteredExtension, deleteFilteredExtension } from "@/api/filtered-extension";
+import { useFilteredExtensionContext } from '@/context/FilteredExtensionContext';
 
-interface FixedExtensionsSectionProps {
-    FIXED_EXTENSIONS: string[];
-    checkedFixedExtensions: string[];
-    fetchExtensions: () => void;
-}
+export default function FixedExtensionSection() {
+  const {
+      fixedExtensions,
+      FIXED_EXTENSIONS,
+      fetchFilteredExtensions
+  } = useFilteredExtensionContext();
 
-export default function FixedExtensionSection({FIXED_EXTENSIONS, checkedFixedExtensions, fetchExtensions}: FixedExtensionsSectionProps) {
   const handleFixedExtensionChange = async (e: ChangeEvent<HTMLInputElement>, extension: string) => {
     if (e.target.checked) {
       await addFilteredExtension({name: extension})
@@ -15,7 +16,7 @@ export default function FixedExtensionSection({FIXED_EXTENSIONS, checkedFixedExt
       await deleteFilteredExtension({name: extension});
     }
 
-    fetchExtensions();
+    fetchFilteredExtensions();
   };
 
   return (
@@ -29,7 +30,7 @@ export default function FixedExtensionSection({FIXED_EXTENSIONS, checkedFixedExt
             <input
               type="checkbox"
               name="fixedExtension"
-              checked={checkedFixedExtensions.includes(extension)}
+              checked={fixedExtensions.includes(extension)}
               onChange={(e) => handleFixedExtensionChange(e, extension)}
               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
             />

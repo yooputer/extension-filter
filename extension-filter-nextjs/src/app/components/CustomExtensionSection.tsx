@@ -1,19 +1,15 @@
 import { KeyboardEvent, useState } from 'react';
 import { addFilteredExtension, deleteFilteredExtension } from "@/api/filtered-extension";
+import { useFilteredExtensionContext } from '@/context/FilteredExtensionContext';
 
-interface CustomExtensionsSectionProps {
-  FIXED_EXTENSIONS: string[];
-  customExtensions: string[];
-  fetchExtensions: () => void;
-}
-
-export default function CustomExtensionSection({
-  FIXED_EXTENSIONS,
-  customExtensions,
-  fetchExtensions
-}: CustomExtensionsSectionProps) {
-  const MAX_CUSTOM_EXTENSION_CNT = 200;
-  const MAX_CUSTOM_EXTENSION_LENGTH = 20;
+export default function CustomExtensionSection() {
+  const {
+    customExtensions,
+    FIXED_EXTENSIONS,
+    MAX_CUSTOM_EXTENSION_CNT,
+    MAX_CUSTOM_EXTENSION_LENGTH,
+    fetchFilteredExtensions
+  } = useFilteredExtensionContext();
   const [newExtension, setNewExtension] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -39,7 +35,7 @@ export default function CustomExtensionSection({
     const resultMsg = await addFilteredExtension({name: newExtension});
 
     if (resultMsg === 'success') {
-      fetchExtensions();
+      fetchFilteredExtensions();
       setNewExtension('');
       setErrorMsg('');
     }else {
@@ -50,7 +46,7 @@ export default function CustomExtensionSection({
   const handleDeleteCustomExtension = async (name: string) => {
     await deleteFilteredExtension({ name });
 
-    fetchExtensions();
+    fetchFilteredExtensions();
   };
 
   const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {

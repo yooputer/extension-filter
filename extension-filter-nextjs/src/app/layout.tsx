@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { FilteredExtensionProvider } from "@/context/FilteredExtensionContext";
 
 export const metadata: Metadata = {
   title: "파일 확장자 차단",
@@ -14,11 +15,13 @@ export default function RootLayout({
   return (
     <html lang="en">
         <body>
-            <div className="min-h-screen bg-gray-50 py-8">
-                <div className="max-w-2xl mx-auto px-4">
-                {children}
+            <FilteredExtensionProvider>
+                <div className="min-h-screen bg-gray-50 py-8">
+                    <div className="max-w-2xl mx-auto px-4">
+                    {children}
+                    </div>
                 </div>
-            </div>
+            </FilteredExtensionProvider>
         </body>
     </html>
   );
