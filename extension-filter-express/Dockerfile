@@ -1,5 +1,5 @@
-# Node.js 공식 이미지를 베이스로 사용
-FROM node:18
+# 빌드 단계
+FROM node:18-slim AS builder
 
 # 작업 디렉터리 설정
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # 의존성 설치
-RUN npm install
+RUN npm install && npm cache clean --force
 
 # 앱 소스 전체를 복사
 COPY . .

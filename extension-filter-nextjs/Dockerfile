@@ -1,5 +1,5 @@
-# Node.js 공식 이미지를 베이스로 사용
-FROM node:18
+# 빌드 단계
+FROM node:18-slim AS builder
 
 # 작업 디렉터리 설정
 WORKDIR /app
@@ -15,8 +15,20 @@ COPY . .
 
 RUN npm run build
 
+# 실행 단계
+FROM node:18-slim
+
+WORKDIR /app
+
+# 빌드 단계에서 생성된 필요한 파일들만 복사
+COPY package*.json ./
+
+COPY --from=builder --chown=nextjs:nextjs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nextjs /app/.next/static ./.next/static
+#COPY --from=builder --chown=nextjs:nextjs /app/public ./public
+
 # 애플리케이션이 사용할 포트
 EXPOSE 80
 
 # 서버 시작 명령어
-CMD ["npm", "run", "start"]
+CMD ["node", "server.js"]
