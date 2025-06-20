@@ -23,9 +23,9 @@ WORKDIR /app
 # 빌드 단계에서 생성된 필요한 파일들만 복사
 COPY package*.json ./
 
-COPY --from=builder --chown=nextjs:nextjs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nextjs /app/.next/static ./.next/static
-#COPY --from=builder --chown=nextjs:nextjs /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+#COPY --from=builder /app/public ./public
 
 # 애플리케이션이 사용할 포트
 EXPOSE 80
